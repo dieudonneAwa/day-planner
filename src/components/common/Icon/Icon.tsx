@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import styled from 'styled-components';
 import { BaseProps } from '..';
+import { StyledIcon } from './Icon.styled';
 
 export type Appearance =
   | 'white'
@@ -20,10 +20,6 @@ export interface IconProps extends BaseProps {
   children?: React.ReactNode;
 }
 
-const StyledIcon = styled.i<{ appearance: Appearance }>`
-  color: ${(p) => p.theme.colors[p.appearance]};
-`;
-
 export const Icon = (props: IconProps) => {
   const { appearance = 'blue-grey', className, name, size = 16, onClick, children } = props;
 
@@ -38,10 +34,21 @@ export const Icon = (props: IconProps) => {
   };
 
   if (children && React.isValidElement(children)) {
-    return <span className={className}>{children}</span>;
+    return (
+      <span data-test="custom-icon" className={className}>
+        {children}
+      </span>
+    );
   }
+  
   return (
-    <StyledIcon appearance={appearance} className={iconClass} style={styles} onClick={onClick}>
+    <StyledIcon
+      data-test="material-icon"
+      appearance={appearance}
+      className={iconClass}
+      style={styles}
+      onClick={onClick}
+    >
       {name}
     </StyledIcon>
   );

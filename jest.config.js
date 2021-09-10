@@ -1,6 +1,7 @@
 const TEST_REGEX = '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|js?|tsx?|ts?)$';
 
 module.exports = {
+  testEnvironment: 'jsdom',
   setupFiles: ['<rootDir>/jest.setup.js'],
   testRegex: TEST_REGEX,
   transform: {
