@@ -1,13 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import Text from './Text';
+import PageLayout from './PageLayout';
 
-describe('Text', (): void => {
+describe('PageLayout', (): void => {
   let wrapper: ShallowWrapper<void>;
 
-  it('should be defined', (): void => {
-    wrapper = shallow(<Text>Text</Text>);
+  it('should be rendered successfully', (): void => {
+    wrapper = shallow(<PageLayout>PageLayout</PageLayout>);
     expect(wrapper).toBeDefined();
   });
 });

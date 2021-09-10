@@ -13,12 +13,10 @@ export interface TextProps extends BaseProps, BaseHtmlProps<HTMLSpanElement> {
   weight?: Weight;
   family?: Family;
   size?: Size;
-  as?: string | undefined;
 }
 
 export const Text = (props: TextProps) => {
   const {
-    as,
     appearance = 'white',
     family = 'default',
     size = 'md',

@@ -1,15 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { BaseProps } from '..';
+import { Appearance, BaseProps } from '..';
 import { StyledIcon } from './Icon.styled';
 
-export type Appearance =
-  | 'white'
-  | 'blue-oxford'
-  | 'blue-oxforddark'
-  | 'blue-grey'
-  | 'blue-cadet'
-  | 'blue-cadetcrayola';
 export type IconType = 'filled'; // only 'filled' is used.
 
 export interface IconProps extends BaseProps {
@@ -40,7 +33,7 @@ export const Icon = (props: IconProps) => {
       </span>
     );
   }
-  
+
   return (
     <StyledIcon
       data-test="material-icon"
