@@ -3,6 +3,7 @@ export type Colors = {
   black: string;
   'blue-oxford': string;
   'blue-oxforddark': string;
+  'space-cadet': string;
   'blue-grey': string;
   'blue-cadet': string;
   'blue-cadetcrayola': string;

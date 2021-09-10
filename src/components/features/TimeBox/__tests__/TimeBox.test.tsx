@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
-import Text from './Text';
+import TimeBox from '../TimeBox';
 
-describe('Text', (): void => {
+describe('TimeBox', (): void => {
   let wrapper: ShallowWrapper<void>;
 
   it('should be defined', (): void => {
-    wrapper = shallow(<Text>Text</Text>);
+    wrapper = shallow(<TimeBox />);
     expect(wrapper).toBeDefined();
   });
 });

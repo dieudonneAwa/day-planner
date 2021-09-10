@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import PageLayout from './PageLayout';

@@ -1,10 +1,10 @@
-import styled from 'styled-components'
-
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
-`
+import { PageLayout } from '../src/components/common/PageLayout';
+import { TimeBoxes } from '../src/components/features/TimeBox';
 
 export default function Home() {
-  return <Title>My page</Title>
+  return (
+    <PageLayout>
+      <TimeBoxes />
+    </PageLayout>
+  );
 }
