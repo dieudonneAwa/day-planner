@@ -13,7 +13,11 @@
     "react": "17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
-    "styled-components": "^5.2.3"
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-persist": "^6.0.0",
+    "styled-components": "^5.2.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.9",
@@ -21,11 +25,13 @@
     "@types/react": "17.0.4",
     "@types/react-dom": "17.0.3",
     "@types/styled-components": "5.1.9",
+    "@types/uuid": "^8.3.1",
     "babel-plugin-styled-components": "^1.12.0",
     "core-js": "^3.17.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "jest": "^27.1.1",
+    "redux-devtools-extension": "^2.13.9",
     "typescript": "4.3.2"
   }
 }
