@@ -44,9 +44,15 @@ export const reducer = (state: TaskState = taskInitialState, action: Action): Ta
     }
 
     case Types.CREATE_TASK: {
+      const updatedTasks = [...state.tasks, payload];
+      const analytics = updatedTasks.map((task) => ({
+        name: task.title,
+        value: typeof task.timeBox === 'string' ? parseInt(task.timeBox, 10) : task.timeBox,
+      }));
       return {
         ...state,
-        tasks: [...state.tasks, payload],
+        analytics,
+        tasks: updatedTasks,
         taskGroups: generateTaskGroupHash([...state.tasks, payload]),
       };
     }
@@ -59,14 +65,22 @@ export const reducer = (state: TaskState = taskInitialState, action: Action): Ta
         return task;
       });
 
+      const tasks = state.tasks.map((task: Task) => {
+        if (task.id === payload.id) {
+          return payload;
+        }
+        return task;
+      });
+
+      const analytics = state.tasks.map((task) => ({
+        name: task.title,
+        value: typeof task.timeBox === 'string' ? parseInt(task.timeBox, 10) : task.timeBox,
+      }));
+
       return {
         ...state,
-        tasks: state.tasks.map((task: Task) => {
-          if (task.id === payload.id) {
-            return payload;
-          }
-          return task;
-        }),
+        analytics,
+        tasks,
         taskGroups: {
           ...state.taskGroups,
           [getDateString(payload.createdAt)]: updatedTasks,
@@ -79,9 +93,17 @@ export const reducer = (state: TaskState = taskInitialState, action: Action): Ta
         (task: Task) => task.id !== payload.id
       );
 
+      const filteredTasks = state.tasks.filter((task: Task) => task.id !== payload.id);
+
+      const analytics = filteredTasks.map((task) => ({
+        name: task.title,
+        value: typeof task.timeBox === 'string' ? parseInt(task.timeBox, 10) : task.timeBox,
+      }));
+
       return {
         ...state,
-        tasks: state.tasks.filter((task: Task) => task.id !== payload.id),
+        analytics,
+        tasks: filteredTasks,
         taskGroups: {
           ...state.taskGroups,
           [getDateString(payload.createdAt)]: updatedTasks,
