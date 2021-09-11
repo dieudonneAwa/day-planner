@@ -7,7 +7,7 @@ import AddOrEditTaskForm from './AddOrEditTaskForm';
 import SingleTask from './SingleTask';
 import { Card, GroupLabel, GroupWrapper } from './Task.styled';
 
-interface Props {
+export interface Props {
   tasks: Task[];
   groupDate: string;
   shouldCreateTask?: boolean;
@@ -20,7 +20,7 @@ const TaskGroup = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const { tasks: taskList, groupDate, shouldCreateTask, setShouldCreateTask } = props;
+  const { tasks: taskList, groupDate, shouldCreateTask, setShouldCreateTask = () => {} } = props;
 
   useEffect(() => {
     setTasks(taskList);
@@ -82,6 +82,7 @@ const TaskGroup = (props: Props) => {
             size="sm"
             appearance="blue-grey"
             className="cursor-pointer"
+            data-test="Task--create"
             onClick={() => setShouldCreateTask(true)}
           >
             + Create new task
@@ -93,24 +94,25 @@ const TaskGroup = (props: Props) => {
             onChange={handleChange}
             onCancel={handleAddOrEditCancel}
             onSubmit={handleCreate}
+            data-test="Task--form"
           />
         )}
         {tasks
           .sort((a, b) => (a.id > b.id ? -1 : 1))
           .map((task) => (
-            <>
+            <React.Fragment key={task.id}>
               {task.shouldEdit && task.id === currentTask.id ? (
                 <AddOrEditTaskForm
                   task={currentTask}
-                  key={task.id}
                   onChange={handleChange}
                   onCancel={handleAddOrEditCancel}
                   onSubmit={handleUpdate}
+                  data-test="Task--form"
                 />
               ) : (
-                <SingleTask key={task.id} task={task} onEdit={onEdit} onDelete={handleDelete} />
+                <SingleTask task={task} data-test="Single-task" onEdit={onEdit} onDelete={handleDelete} />
               )}
-            </>
+            </React.Fragment>
           ))}
       </Card>
     </GroupWrapper>

@@ -11,10 +11,10 @@ interface Props {
 }
 
 const SingleTask = (props: Props) => {
-  const { task, onEdit, onDelete } = props;
+  const { task, onEdit, onDelete, ...rest } = props;
 
   return (
-    <StyledTask>
+    <StyledTask {...rest}>
       <div className="Task-content">
         <Text family="encode" appearance="blue-grey" weight="500">
           {task?.title}
@@ -22,8 +22,13 @@ const SingleTask = (props: Props) => {
         <small>Time box: {task?.timeBox} minutes</small>
       </div>
       <div className="Task-icons">
-        <Icon onClick={() => onEdit(task)} className="Icon" name="edit" />
-        <Icon className="Icon" onClick={() => onDelete(task)} name="delete" />
+        <Icon onClick={() => onEdit(task)} className="Icon" data-test="edit-icon" name="edit" />
+        <Icon
+          className="Icon"
+          onClick={() => onDelete(task)}
+          data-test="delete-icon"
+          name="delete"
+        />
       </div>
     </StyledTask>
   );

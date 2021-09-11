@@ -40,6 +40,7 @@ const EmptyState = (props: Props) => {
                 appearance="blue-grey"
                 className="cursor-pointer"
                 onClick={() => setShouldCreateTask(true)}
+                data-test="Task--create"
               >
                 + Create new task
               </Text>

@@ -10,9 +10,9 @@ interface Props {
   task: Task;
 }
 
-const AddOrEditTaskForm = ({ onChange, task, onSubmit, onCancel }: Props) => {
+const AddOrEditTaskForm = ({ onChange, task, onSubmit, onCancel, ...rest }: Props) => {
   return (
-    <TaskForm>
+    <TaskForm {...rest}>
       <label>Task:</label>
       <StyledInput
         autoFocus

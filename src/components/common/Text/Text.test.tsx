@@ -5,7 +5,7 @@ import Text from './Text';
 describe('Text', (): void => {
   let wrapper: ShallowWrapper<void>;
 
-  it('should be defined', (): void => {
+  it('should be rendered', (): void => {
     wrapper = shallow(<Text>Text</Text>);
     expect(wrapper).toBeDefined();
   });

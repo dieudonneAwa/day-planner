@@ -1,4 +1,4 @@
-import { ShallowWrapper } from 'enzyme';
+import { ReactWrapper, ShallowWrapper } from 'enzyme';
 import { css, FlattenSimpleInterpolation } from 'styled-components';
 
 // SET FLEX
@@ -37,7 +37,7 @@ export const setPosition: (
   `;
 
 // For component test purpose
-export const findByTestAttr = (wrapper: ShallowWrapper<void>, val: string) =>
+export const findByTestAttr = (wrapper: ShallowWrapper<void> | ReactWrapper<any>, val: string) =>
   wrapper.find(`[data-test="${val}"]`);
 
 export const getDateString = (date: string) => new Date(date).toDateString();

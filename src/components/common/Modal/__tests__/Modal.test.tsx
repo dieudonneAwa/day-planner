@@ -1,14 +1,14 @@
 import React from 'react';
-import { shallow, ShallowWrapper } from 'enzyme';
-import Modal from '../Modal';
+import { mount, ReactWrapper } from 'enzyme';
+import Modal, { ModalProps } from '../Modal';
 
 describe('Modal', (): void => {
-  let wrapper: ShallowWrapper<void>;
+  let wrapper: ReactWrapper<ModalProps, {}, any>;
 
-  it('should be defined', (): void => {
+  it('should be rendered', (): void => {
     const props = { open: false, onClose: () => {} };
 
-    wrapper = shallow(<Modal {...props}>Modal</Modal>);
+    wrapper = mount(<Modal {...props}>Modal</Modal>);
     expect(wrapper).toBeDefined();
   });
 });
