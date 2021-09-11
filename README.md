@@ -14,6 +14,7 @@ A simple application for planning the day.
 - [Redux](https://redux.js.org/)
 - [Jest](https://jestjs.io/docs/tutorial-react)
 - [Enzyme](https://enzymejs.github.io/enzyme/docs/guides/jest.html)
+- [Recharts](https://recharts.org/)
 
 
 #### How to install and run locally
