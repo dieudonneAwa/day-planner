@@ -1,5 +1,4 @@
 import { ShallowWrapper } from 'enzyme';
-import { v4 as uuidv4 } from 'uuid';
 import { css, FlattenSimpleInterpolation } from 'styled-components';
 
 // SET FLEX
@@ -41,4 +40,4 @@ export const setPosition: (
 export const findByTestAttr = (wrapper: ShallowWrapper<void>, val: string) =>
   wrapper.find(`[data-test="${val}"]`);
 
-export const uidGenerator = () => uuidv4();
+export const getDateString = (date: string) => new Date(date).toDateString();

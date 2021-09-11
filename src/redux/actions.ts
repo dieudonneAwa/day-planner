@@ -1,24 +1,27 @@
-import { Dispatch, Task, TaskTimeBox } from '../components/common';
-import { uidGenerator } from '../components/common/utils';
+import { Dispatch, Task } from '../components/common';
 import { Types } from './action-types';
+import { StoreState } from './store';
 
-export const createTimeBox = (payload: TaskTimeBox) => (dispatch: Dispatch) =>
+export const createTaskAction =
+  (payload: Task) => (dispatch: Dispatch, getState: () => StoreState) => {
+    const { myTasks } = getState();
+    dispatch({
+      type: Types.CREATE_TASK,
+      payload: {
+        ...payload,
+        id: myTasks.tasks.length + 1,
+        createdAt: new Date(),
+      },
+    });
+  };
+
+export const loadTasksAction = () => (dispatch: Dispatch) => dispatch({ type: Types.LOAD_TASKS });
+
+export const updateTaskAction = (task: Task) => (dispatch: Dispatch) =>
   dispatch({
-    type: Types.CREATE_TIME_BOX,
-    payload: {
-      ...payload,
-      id: uidGenerator(),
-    },
+    type: Types.UPDATE_TASK,
+    payload: { ...task, updatedAt: new Date(), shouldEdit: false },
   });
 
-export const fetchTimeBoxes = () => (dispatch: Dispatch) =>
-  dispatch({ type: Types.LOAD_TIME_BOXES });
-
-export const createTask = (payload: Task) => (dispatch: Dispatch) =>
-  dispatch({ type: Types.LOAD_TIME_BOXES, payload: { ...payload, id: uidGenerator() } });
-
-export const updateTask = (task: Task) => (dispatch: Dispatch) =>
-  dispatch({ type: Types.UPDATE_TASK, payload: task });
-
-export const deleteTask = (task: Task) => (dispatch: Dispatch) =>
+export const deleteTaskAction = (task: Task) => (dispatch: Dispatch) =>
   dispatch({ type: Types.DELETE_TASK, payload: task });

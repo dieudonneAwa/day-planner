@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { setFlex } from "../utils";
+import { setFlex } from "../../common/utils";
 
 export const LayoutWrapper = styled.div`
   ${setFlex('flex-start', 'stretch', 'column')}

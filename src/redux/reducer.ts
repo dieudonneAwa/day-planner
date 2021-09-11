@@ -1,71 +1,89 @@
 import { AnyAction as Action } from 'redux';
-import storage from 'redux-persist/lib/storage';
-import { TaskTimeBox } from '../components/common';
+import storage from './storage';
+import { Task, TaskGroup } from '../components/common';
 import { Types } from './action-types';
+import { getDateString } from '../components/common/utils';
 
-export interface StoreState {
-  timeBoxes: TaskTimeBox[];
+export interface TaskState {
+  tasks: Task[];
+  taskGroups: TaskGroup;
 }
 
-export const storeInitialState = {
-  timeBoxes: [],
+export const taskInitialState = {
+  tasks: [],
+  taskGroups: {},
 };
 
-export const reducer = (state: StoreState = storeInitialState, action: Action): StoreState => {
+const generateTaskGroupHash = (tasks: Task[]) => {
+  const taskGroups = tasks.reduce((acc: TaskGroup, task) => {
+    let group = acc[`${getDateString(task.createdAt as string)}`];
+    if (!group) {
+      acc[`${getDateString(task.createdAt as string)}`] = [task];
+    } else {
+      acc[`${getDateString(task.createdAt as string)}`] = [...group, task];
+    }
+    return acc;
+  }, {});
+
+  return taskGroups;
+};
+
+export const reducer = (state: TaskState = taskInitialState, action: Action): TaskState => {
   const { type, payload } = action;
 
   switch (type) {
-    case Types.CREATE_TIME_BOX:
-      return { ...state, timeBoxes: [...state.timeBoxes, payload] };
-
-    case Types.LOAD_TIME_BOXES:
-      return { ...state, timeBoxes: state.timeBoxes };
-
-    case Types.CREATE_TASK: {
-      const timeBoxes = state.timeBoxes.reduce((acc: TaskTimeBox[], currentbox: TaskTimeBox) => {
-        if (currentbox.id === payload.timeBox.id) {
-          currentbox.tasks = [...currentbox.tasks, payload];
-          return [...acc, currentbox];
-        }
-        return [...acc, currentbox];
-      }, []);
-
+    case Types.LOAD_TASKS: {
+      const taskGroups = generateTaskGroupHash(state.tasks);
       return {
         ...state,
-        timeBoxes,
+        tasks: state.tasks,
+        taskGroups,
+      };
+    }
+
+    case Types.CREATE_TASK: {
+      return {
+        ...state,
+        tasks: [...state.tasks, payload],
+        taskGroups: generateTaskGroupHash([...state.tasks, payload]),
       };
     }
 
     case Types.UPDATE_TASK: {
-      const timeBoxes = state.timeBoxes.reduce((acc: TaskTimeBox[], currentbox: TaskTimeBox) => {
-        if (currentbox.id === payload.timeBox.id) {
-          currentbox.tasks = currentbox.tasks.map((task) => {
-            if (task.id === payload.id) return payload;
-            return task;
-          });
-          return [...acc, currentbox];
+      const updatedTasks = state.taskGroups[getDateString(payload.createdAt)]?.map((task: Task) => {
+        if (task.id === payload.id) {
+          return payload;
         }
-        return [...acc, currentbox];
-      }, []);
+        return task;
+      });
 
       return {
         ...state,
-        timeBoxes,
+        tasks: state.tasks.map((task: Task) => {
+          if (task.id === payload.id) {
+            return payload;
+          }
+          return task;
+        }),
+        taskGroups: {
+          ...state.taskGroups,
+          [getDateString(payload.createdAt)]: updatedTasks,
+        },
       };
     }
 
     case Types.DELETE_TASK: {
-      const timeBoxes = state.timeBoxes.reduce((acc: TaskTimeBox[], currentbox: TaskTimeBox) => {
-        if (currentbox.id === payload.timeBox.id) {
-          currentbox.tasks = currentbox.tasks.filter((task) => task.id !== payload.id);
-          return [...acc, currentbox];
-        }
-        return [...acc, currentbox];
-      }, []);
+      const updatedTasks = state.taskGroups[getDateString(payload.createdAt)]?.filter(
+        (task: Task) => task.id !== payload.id
+      );
 
       return {
         ...state,
-        timeBoxes,
+        tasks: state.tasks.filter((task: Task) => task.id !== payload.id),
+        taskGroups: {
+          ...state.taskGroups,
+          [getDateString(payload.createdAt)]: updatedTasks,
+        },
       };
     }
     default:
@@ -74,7 +92,7 @@ export const reducer = (state: StoreState = storeInitialState, action: Action): 
 };
 
 export const persistConfig = {
-  key: 'primary',
+  key: 'root',
   storage,
-  whitelist: ['exampleData'], // place to select which state you want to persist
+  whitelist: ['tasks'], // place to select which state you want to persist
 };

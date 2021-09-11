@@ -15,17 +15,14 @@ export type Appearance =
 export type Time = { start: string; end: string };
 
 export type Task = {
-  id: string;
+  id: number;
   title: string;
-  position?: number;
-  timeBox: TaskTimeBox;
+  shouldEdit?: boolean;
+  timeBox: number; // Time box is in mins
+  createdAt?: string;
+  updatedAt?: string;
 };
 
-export interface TaskTimeBox {
-  id: string;
-  time: Time;
-  tasks: Task[];
-  title: string;
-}
-
 export type Dispatch = (action: Action) => Action;
+
+export type TaskGroup = { [key: string]: Task[] };

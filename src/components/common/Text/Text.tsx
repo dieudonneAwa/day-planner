@@ -13,6 +13,7 @@ export interface TextProps extends BaseProps, BaseHtmlProps<HTMLSpanElement> {
   weight?: Weight;
   family?: Family;
   size?: Size;
+  onClick?: React.MouseEventHandler<HTMLSpanElement> | undefined;
 }
 
 export const Text = (props: TextProps) => {
@@ -23,6 +24,7 @@ export const Text = (props: TextProps) => {
     children,
     weight = '300',
     className,
+    onClick
   } = props;
 
   return (
@@ -32,6 +34,7 @@ export const Text = (props: TextProps) => {
       weight={weight}
       family={family}
       className={className}
+      onClick={onClick}
     >
       {children}
     </StyledText>

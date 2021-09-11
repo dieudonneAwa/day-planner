@@ -1,16 +1,35 @@
 import { useMemo } from 'react';
-import { createStore, applyMiddleware, Store } from 'redux';
+import { createStore, applyMiddleware, Store, combineReducers, AnyAction } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { persistReducer } from 'redux-persist';
-import { PersistPartial } from 'redux-persist/es/persistReducer';
-import { persistConfig, reducer, storeInitialState, StoreState } from './reducer';
+import { persistReducer, persistStore } from 'redux-persist';
+import { persistConfig, reducer, taskInitialState, TaskState } from './reducer';
+import { Persistor } from 'redux-persist/es/types';
 
-let store: Store<PersistPartial, any> | undefined;
+let store: Store<any, AnyAction> | undefined;
+
+const isClient = typeof window !== 'undefined';
+
+export interface StoreState {
+  myTasks: TaskState;
+}
+
+export const storeInitialState: StoreState = {
+  myTasks: taskInitialState,
+};
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
+const rootReducer = combineReducers({
+  myTasks: persistedReducer,
+});
+
 function makeStore(initialState: any = storeInitialState) {
-  return createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware()));
+  return createStore(
+    rootReducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(thunkMiddleware))
+  );
 }
 
 export const initializeStore = (preloadedState: StoreState | undefined) => {
@@ -28,7 +47,7 @@ export const initializeStore = (preloadedState: StoreState | undefined) => {
   }
 
   // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') return _store;
+  if (!isClient) return _store;
   // Create the store once in the client
   if (!store) store = _store;
 
@@ -37,5 +56,7 @@ export const initializeStore = (preloadedState: StoreState | undefined) => {
 
 export function useStore(initialState: StoreState) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
-  return store;
+  let persistor: Persistor;
+  persistor = persistStore(store as Store<any, AnyAction>, {}, () => {});
+  return { store, persistor };
 }
