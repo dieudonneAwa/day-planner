@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { setFlex, setPosition } from '../../common/utils';
 
-export const DayWrapper = styled.div`
+export const GroupWrapper = styled.div`
   flex: 1;
   padding: 0 1rem;
   min-height: 100px;
@@ -12,7 +12,7 @@ export const DayWrapper = styled.div`
   }
 `;
 
-export const DayLabel = styled.header`
+export const GroupLabel = styled.header`
   font-family: ${(p) => p.theme.font.family.encode};
   color: ${(p) => p.theme.colors['blue-grey']};
   ${setPosition('relative')}
@@ -76,7 +76,7 @@ export const ContentWrapper = styled.div`
   min-height: 90vh;
 `;
 
-export const TaskDaysContainer = styled.div`
+export const TaskGroupsContainer = styled.div`
   border-left: 3px solid ${(p) => p.theme.colors['blue-cadet']};
   padding: 0 1.5rem;
   flex: 1;

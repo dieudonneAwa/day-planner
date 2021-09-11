@@ -10,7 +10,7 @@ interface Props {
   onDelete: (task: Task) => void;
 }
 
-const TaskComponent = (props: Props) => {
+const SingleTask = (props: Props) => {
   const { task, onEdit, onDelete } = props;
 
   return (
@@ -29,4 +29,4 @@ const TaskComponent = (props: Props) => {
   );
 };
 
-export default TaskComponent;
+export default SingleTask;

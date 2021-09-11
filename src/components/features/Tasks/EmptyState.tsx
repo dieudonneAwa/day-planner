@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Task } from '../../common';
 import { Text } from '../../common/Text';
 import AddOrEditTaskForm from './AddOrEditTaskForm';
-import { ContentWrapper, DayLabel, Card, TaskDaysContainer, DayWrapper } from './Task.styled';
+import { ContentWrapper, GroupLabel, Card, TaskGroupsContainer, GroupWrapper } from './Task.styled';
 
 interface Props {
   shouldCreateTask?: boolean;
@@ -25,14 +25,14 @@ const EmptyState = (props: Props) => {
 
   return (
     <ContentWrapper>
-      <TaskDaysContainer>
-        <DayWrapper>
-          <DayLabel>
+      <TaskGroupsContainer>
+        <GroupWrapper>
+          <GroupLabel>
             <span className="circle"></span>
             <Text family="encode" appearance={'blue-grey'} weight="500">
               Create Your first task for the day
             </Text>
-          </DayLabel>
+          </GroupLabel>
           <Card>
             {!shouldCreateTask && (
               <Text
@@ -53,8 +53,8 @@ const EmptyState = (props: Props) => {
               />
             )}
           </Card>
-        </DayWrapper>
-      </TaskDaysContainer>
+        </GroupWrapper>
+      </TaskGroupsContainer>
     </ContentWrapper>
   );
 };

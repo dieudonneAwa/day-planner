@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Task } from '../src/components/common';
 import { PageLayout } from '../src/components/features/PageLayout';
-import EmptyState from '../src/components/features/TaskDay/EmptyState';
-import { ContentWrapper, TaskDaysContainer } from '../src/components/features/TaskDay/Task.styled';
-import TaskGroup from '../src/components/features/TaskDay/TaskGroup';
+import EmptyState from '../src/components/features/Tasks/EmptyState';
+import { ContentWrapper, TaskGroupsContainer } from '../src/components/features/Tasks/Task.styled';
+import TaskGroup from '../src/components/features/Tasks/TaskGroup';
 import { createTaskAction, loadTasksAction } from '../src/redux/actions';
 import { StoreState } from '../src/redux/store';
 
@@ -53,7 +53,7 @@ export default function Home() {
         )}
         {!!Object.keys(myTasks.taskGroups).length && (
           <ContentWrapper>
-            <TaskDaysContainer>
+            <TaskGroupsContainer>
               {Object.keys(myTasks.taskGroups).map((key) => (
                 <TaskGroup
                   setShouldCreateTask={setShouldCreateTask}
@@ -63,7 +63,7 @@ export default function Home() {
                   tasks={myTasks.taskGroups[key]}
                 />
               ))}
-            </TaskDaysContainer>
+            </TaskGroupsContainer>
           </ContentWrapper>
         )}
       </>

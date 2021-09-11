@@ -4,8 +4,8 @@ import { createTaskAction, deleteTaskAction, updateTaskAction } from '../../../r
 import { Task } from '../../common';
 import { Text } from '../../common/Text';
 import AddOrEditTaskForm from './AddOrEditTaskForm';
-import TaskComponent from './TaskComponent';
-import { Card, ContentWrapper, DayLabel, DayWrapper, TaskDaysContainer } from './Task.styled';
+import SingleTask from './SingleTask';
+import { Card, GroupLabel, GroupWrapper } from './Task.styled';
 
 interface Props {
   tasks: Task[];
@@ -68,13 +68,13 @@ const TaskGroup = (props: Props) => {
   };
 
   return (
-    <DayWrapper>
-      <DayLabel>
+    <GroupWrapper>
+      <GroupLabel>
         <span className="circle"></span>
         <Text family="encode" appearance={'blue-grey'} weight="500">
           {groupDate === new Date().toDateString() ? "Today's tasks" : groupDate}
         </Text>
-      </DayLabel>
+      </GroupLabel>
 
       <Card>
         {!shouldCreateTask && groupDate === new Date().toDateString() && (
@@ -108,12 +108,12 @@ const TaskGroup = (props: Props) => {
                   onSubmit={handleUpdate}
                 />
               ) : (
-                <TaskComponent key={task.id} task={task} onEdit={onEdit} onDelete={handleDelete} />
+                <SingleTask key={task.id} task={task} onEdit={onEdit} onDelete={handleDelete} />
               )}
             </>
           ))}
       </Card>
-    </DayWrapper>
+    </GroupWrapper>
   );
 };
 
