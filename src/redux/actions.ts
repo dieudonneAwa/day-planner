@@ -25,3 +25,5 @@ export const updateTaskAction = (task: Task) => (dispatch: Dispatch) =>
 
 export const deleteTaskAction = (task: Task) => (dispatch: Dispatch) =>
   dispatch({ type: Types.DELETE_TASK, payload: task });
+
+export const loadTasksAnalyticsAction = () => (dispatch: Dispatch) => dispatch({ type: Types.LOAD_ANALYTICS });

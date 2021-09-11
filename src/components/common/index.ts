@@ -18,7 +18,7 @@ export type Task = {
   id: number;
   title: string;
   shouldEdit?: boolean;
-  timeBox: number; // Time box is in mins
+  timeBox: number | string; // Time box is in mins
   createdAt?: string;
   updatedAt?: string;
 };
@@ -26,3 +26,5 @@ export type Task = {
 export type Dispatch = (action: Action) => Action;
 
 export type TaskGroup = { [key: string]: Task[] };
+
+export type Analytic = { name: string; value: number };

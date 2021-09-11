@@ -1,17 +1,19 @@
 import { AnyAction as Action } from 'redux';
 import storage from './storage';
-import { Task, TaskGroup } from '../components/common';
+import { Analytic, Task, TaskGroup } from '../components/common';
 import { Types } from './action-types';
 import { getDateString } from '../components/common/utils';
 
 export interface TaskState {
   tasks: Task[];
   taskGroups: TaskGroup;
+  analytics: Analytic[];
 }
 
-export const taskInitialState = {
+export const taskInitialState: TaskState = {
   tasks: [],
   taskGroups: {},
+  analytics: [],
 };
 
 const generateTaskGroupHash = (tasks: Task[]) => {
@@ -86,6 +88,16 @@ export const reducer = (state: TaskState = taskInitialState, action: Action): Ta
         },
       };
     }
+
+    case Types.LOAD_ANALYTICS: {
+      const data = state.tasks.map((task) => ({
+        name: task.title,
+        value: typeof task.timeBox === 'string' ? parseInt(task.timeBox, 10) : task.timeBox,
+      }));
+
+      return { ...state, analytics: data };
+    }
+
     default:
       return state;
   }
