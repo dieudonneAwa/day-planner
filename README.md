@@ -1,7 +1,10 @@
 # Day planner
-<<<<<<< Updated upstream
+
 A simple application for planning the day.
 
+<img width="1440" alt="Screenshot 2021-09-11 at 16 26 08" src="https://user-images.githubusercontent.com/29434750/132953016-25732314-1d19-47b5-9c17-72e68043aa62.png">
+
+---
 
 #### Technologies
 
@@ -12,13 +15,8 @@ A simple application for planning the day.
 - [Jest](https://jestjs.io/docs/tutorial-react)
 - [Enzyme](https://enzymejs.github.io/enzyme/docs/guides/jest.html)
 
----
 
 #### How to install and run locally
-=======
-
-## How to run locally
->>>>>>> Stashed changes
 
 ```
 #clone repository
@@ -30,8 +28,6 @@ yarn install
 #start development server
 yarn dev
 
-<<<<<<< Updated upstream
 ```
-=======
-```
->>>>>>> Stashed changes
+
+
