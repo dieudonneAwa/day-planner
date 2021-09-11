@@ -5,6 +5,7 @@ import { loadTasksAnalyticsAction } from '../../../redux/actions';
 import { StoreState } from '../../../redux/store';
 import { Icon } from '../../common/Icon';
 import Modal from '../../common/Modal/Modal';
+import { Text } from '../../common/Text';
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -56,7 +57,21 @@ const TasksAnalytics = () => {
 
   return (
     <>
-      <Icon size={25} onClick={handleViewAnalytics} className="cursor-pointer" name="insights" />
+      <Text
+        className="cursor-pointer"
+        appearance="blue-grey"
+        weight="500"
+        onClick={handleViewAnalytics}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '130px',
+        }}
+      >
+        View Analytics
+        <Icon name="insights" />
+      </Text>
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         {!!analytics.length && (
           <ResponsiveContainer minWidth={400} minHeight={400} width="100%" height="100%">

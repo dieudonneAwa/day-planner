@@ -11,7 +11,7 @@ interface Props {
   tasks: Task[];
   groupDate: string;
   shouldCreateTask?: boolean;
-  setShouldCreateTask: Dispatch<SetStateAction<boolean>>;
+  setShouldCreateTask?: Dispatch<SetStateAction<boolean>>;
 }
 
 const TaskGroup = (props: Props) => {

@@ -107,4 +107,5 @@ export const persistConfig = {
   key: 'root',
   storage,
   whitelist: ['tasks'], // place to select which state you want to persist
+  blacklist: ['analytics'],
 };

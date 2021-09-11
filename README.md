@@ -1,4 +1,5 @@
 # Day planner
+<<<<<<< Updated upstream
 A simple application for planning the day.
 
 
@@ -14,6 +15,10 @@ A simple application for planning the day.
 ---
 
 #### How to install and run locally
+=======
+
+## How to run locally
+>>>>>>> Stashed changes
 
 ```
 #clone repository
@@ -25,4 +30,8 @@ yarn install
 #start development server
 yarn dev
 
+<<<<<<< Updated upstream
 ```
+=======
+```
+>>>>>>> Stashed changes

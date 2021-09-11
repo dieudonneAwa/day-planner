@@ -1,11 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { Appearance, BaseProps } from '..';
+import { Appearance, BaseHtmlProps, BaseProps } from '..';
 import { StyledIcon } from './Icon.styled';
 
 export type IconType = 'filled'; // only 'filled' is used.
 
-export interface IconProps extends BaseProps {
+export interface IconProps extends BaseProps, BaseHtmlProps<HTMLElement> {
   name?: string;
   size?: number;
   appearance?: Appearance;

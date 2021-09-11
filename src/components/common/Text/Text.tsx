@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FlattenSimpleInterpolation } from 'styled-components';
 
 import { BaseProps, BaseHtmlProps, Appearance } from '..';
 import { sizeMapping, StyledText } from './Text.styled';
@@ -13,7 +14,7 @@ export interface TextProps extends BaseProps, BaseHtmlProps<HTMLSpanElement> {
   weight?: Weight;
   family?: Family;
   size?: Size;
-  onClick?: React.MouseEventHandler<HTMLSpanElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLSpanElement>;
 }
 
 export const Text = (props: TextProps) => {
@@ -24,7 +25,9 @@ export const Text = (props: TextProps) => {
     children,
     weight = '300',
     className,
-    onClick
+    as,
+    onClick = () => {},
+    ...rest
   } = props;
 
   return (
@@ -35,6 +38,7 @@ export const Text = (props: TextProps) => {
       family={family}
       className={className}
       onClick={onClick}
+      {...rest}
     >
       {children}
     </StyledText>

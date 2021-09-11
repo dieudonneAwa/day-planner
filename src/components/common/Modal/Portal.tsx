@@ -10,7 +10,6 @@ export interface PortalProps {
 const Portal = ({ children, parent, className }: PortalProps) => {
   const el = React.useMemo(() => document.createElement('div'), []);
   React.useEffect(() => {
-    // @ts-ignore
     const target = parent && parent.appendChild ? parent : document.body;
     const classList = ['portal'];
 
