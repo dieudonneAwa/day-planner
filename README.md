@@ -30,4 +30,6 @@ yarn dev
 
 ```
 
-
+### Nice to have features
+- Drag and drop for ordering tasks in ascending or descending order of priority.
+- Day mode switch
