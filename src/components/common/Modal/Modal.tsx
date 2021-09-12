@@ -1,19 +1,19 @@
 import classNames from 'classnames';
 import React from 'react';
+import { BaseHtmlProps, BaseProps } from '..';
 import { Backdrop } from './Modal.styled';
 import Portal from './Portal';
 
-export interface ModalProps {
+export interface ModalProps extends BaseProps, BaseHtmlProps<HTMLDivElement> {
   open: boolean;
   onClose: () => void;
   locked?: boolean;
   children: React.ReactNode;
-  className?: string;
 }
 
 export default function Modal(props: ModalProps) {
   const [active, setActive] = React.useState(false);
-  const { open, onClose, locked, className } = props;
+  const { open, onClose, locked, className, ...rest } = props;
   const backdrop = React.useRef<HTMLDivElement>(null);
 
   const classes = classNames('modal-content', className);
@@ -23,10 +23,6 @@ export default function Modal(props: ModalProps) {
 
     const transitionEnd = () => setActive(open);
 
-    function keyHandler(this: Window, e: KeyboardEvent) {
-      if (!locked && [27].indexOf(e.which) >= 0) onClose();
-    }
-
     function clickHandler(this: HTMLDivElement, e: MouseEvent) {
       if (!locked && e.target === current) onClose();
     }
@@ -34,7 +30,6 @@ export default function Modal(props: ModalProps) {
     if (current) {
       current.addEventListener('transitionend', transitionEnd);
       current.addEventListener('click', clickHandler);
-      window.addEventListener('keyup', keyHandler);
     }
 
     if (open) {
@@ -51,7 +46,6 @@ export default function Modal(props: ModalProps) {
       }
 
       document.querySelector('#__next')?.removeAttribute('inert');
-      window.removeEventListener('keyup', keyHandler);
     };
   }, [open, locked, onClose]);
 
@@ -60,7 +54,9 @@ export default function Modal(props: ModalProps) {
       {(open || active) && (
         <Portal className="modal-portal">
           <Backdrop ref={backdrop} className={active && open ? 'active' : ''}>
-            <div className={classes}>{props.children}</div>
+            <div className={classes} {...rest}>
+              {props.children}
+            </div>
           </Backdrop>
         </Portal>
       )}

@@ -88,7 +88,7 @@ const TaskGroup = (props: Props) => {
             + Create new task
           </Text>
         )}
-        {shouldCreateTask && (
+        {shouldCreateTask && groupDate === new Date().toDateString() && (
           <AddOrEditTaskForm
             task={currentTask}
             onChange={handleChange}
@@ -110,7 +110,12 @@ const TaskGroup = (props: Props) => {
                   data-test="Task--form"
                 />
               ) : (
-                <SingleTask task={task} data-test="Single-task" onEdit={onEdit} onDelete={handleDelete} />
+                <SingleTask
+                  task={task}
+                  data-test="Single-task"
+                  onEdit={onEdit}
+                  onDelete={handleDelete}
+                />
               )}
             </React.Fragment>
           ))}

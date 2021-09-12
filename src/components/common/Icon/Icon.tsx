@@ -14,10 +14,19 @@ export interface IconProps extends BaseProps, BaseHtmlProps<HTMLElement> {
 }
 
 export const Icon = (props: IconProps) => {
-  const { appearance = 'blue-grey', className, name, size = 16, onClick, children, as, ...rest } = props;
+  const {
+    appearance = 'blue-grey',
+    className,
+    name,
+    size = 16,
+    onClick,
+    children,
+    as,
+    ...rest
+  } = props;
 
   const iconClass = classNames({
-    ['material-icons flex-shrink-0 overflow-hidden select-none']: true,
+    ['material-icons']: true,
     [`${className}`]: className,
   });
 

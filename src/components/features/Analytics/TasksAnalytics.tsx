@@ -62,6 +62,7 @@ const TasksAnalytics = () => {
         appearance="blue-grey"
         weight="500"
         onClick={handleViewAnalytics}
+        data-test="analytics"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -72,16 +73,15 @@ const TasksAnalytics = () => {
         View Analytics
         <Icon name="insights" />
       </Text>
-      <Modal open={showModal} onClose={() => setShowModal(false)}>
+      <Modal data-test="modal" open={showModal} onClose={() => setShowModal(false)}>
         {!!analytics.length && (
           <ResponsiveContainer minWidth={400} minHeight={400} width="100%" height="100%">
             <PieChart width={500} height={500}>
-              <Legend />
+              <Legend align="left" alignmentBaseline="alphabetic" layout="centric" />
               <Pie
                 data={analytics}
                 cx="50%"
                 cy="50%"
-                labelLine={false}
                 label={renderCustomizedLabel}
                 fill="#8884d8"
                 dataKey="value"

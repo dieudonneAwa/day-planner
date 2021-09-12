@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FlattenSimpleInterpolation } from 'styled-components';
 
 import { BaseProps, BaseHtmlProps, Appearance } from '..';
 import { sizeMapping, StyledText } from './Text.styled';
