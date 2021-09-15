@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Task } from '../../common';
 import { Text } from '../../common/Text';
 import AddOrEditTaskForm from './AddOrEditTaskForm';
-import { ContentWrapper, GroupLabel, Card, TaskGroupsContainer, GroupWrapper } from './Task.styled';
+import { GroupLabel, Card, GroupWrapper } from './Task.styled';
 
 interface Props {
   shouldCreateTask?: boolean;
@@ -24,39 +24,35 @@ const EmptyState = (props: Props) => {
   } = props;
 
   return (
-    <ContentWrapper>
-      <TaskGroupsContainer>
-        <GroupWrapper>
-          <GroupLabel>
-            <span className="circle"></span>
-            <Text family="encode" appearance={'blue-grey'} weight="500">
-              Create Your first task for the day
-            </Text>
-          </GroupLabel>
-          <Card>
-            {!shouldCreateTask && (
-              <Text
-                size="sm"
-                appearance="blue-grey"
-                className="cursor-pointer"
-                onClick={() => setShouldCreateTask(true)}
-                data-test="Task--create"
-              >
-                + Create new task
-              </Text>
-            )}
-            {shouldCreateTask && (
-              <AddOrEditTaskForm
-                task={currentTask}
-                onChange={handleChange}
-                onCancel={handleAddOrEditCancel}
-                onSubmit={handleCreate}
-              />
-            )}
-          </Card>
-        </GroupWrapper>
-      </TaskGroupsContainer>
-    </ContentWrapper>
+    <GroupWrapper>
+      <GroupLabel>
+        <span className="circle"></span>
+        <Text family="encode" appearance={'blue-grey'} weight="500">
+          Create Your first task for the day
+        </Text>
+      </GroupLabel>
+      <Card>
+        {!shouldCreateTask && (
+          <Text
+            size="sm"
+            appearance="blue-grey"
+            className="cursor-pointer"
+            onClick={() => setShouldCreateTask(true)}
+            data-test="Task--create"
+          >
+            + Create new task
+          </Text>
+        )}
+        {shouldCreateTask && (
+          <AddOrEditTaskForm
+            task={currentTask}
+            onChange={handleChange}
+            onCancel={handleAddOrEditCancel}
+            onSubmit={handleCreate}
+          />
+        )}
+      </Card>
+    </GroupWrapper>
   );
 };
 

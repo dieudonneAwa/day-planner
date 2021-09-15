@@ -42,27 +42,43 @@ export default function Home() {
     <PageLayout>
       <>
         {!Object.keys(myTasks.taskGroups).length && (
-          <EmptyState
-            handleChange={handleChange}
-            handleCreate={handleCreate}
-            handleAddOrEditCancel={handleAddOrEditCancel}
-            setShouldCreateTask={setShouldCreateTask}
-            shouldCreateTask={shouldCreateTask}
-            currentTask={currentTask}
-          />
+          <ContentWrapper>
+            <TaskGroupsContainer>
+              <EmptyState
+                handleChange={handleChange}
+                handleCreate={handleCreate}
+                handleAddOrEditCancel={handleAddOrEditCancel}
+                setShouldCreateTask={setShouldCreateTask}
+                shouldCreateTask={shouldCreateTask}
+                currentTask={currentTask}
+              />
+            </TaskGroupsContainer>
+          </ContentWrapper>
         )}
         {!!Object.keys(myTasks.taskGroups).length && (
           <ContentWrapper>
             <TaskGroupsContainer>
-              {Object.keys(myTasks.taskGroups).map((key) => (
-                <TaskGroup
+              {!myTasks.taskGroups[new Date().toDateString()] && (
+                <EmptyState
+                  handleChange={handleChange}
+                  handleCreate={handleCreate}
+                  handleAddOrEditCancel={handleAddOrEditCancel}
                   setShouldCreateTask={setShouldCreateTask}
                   shouldCreateTask={shouldCreateTask}
-                  key={key}
-                  groupDate={key}
-                  tasks={myTasks.taskGroups[key]}
+                  currentTask={currentTask}
                 />
-              ))}
+              )}
+              {Object.keys(myTasks.taskGroups)
+                .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
+                .map((key) => (
+                  <TaskGroup
+                    setShouldCreateTask={setShouldCreateTask}
+                    shouldCreateTask={shouldCreateTask}
+                    key={key}
+                    groupDate={key}
+                    tasks={myTasks.taskGroups[key]}
+                  />
+                ))}
             </TaskGroupsContainer>
           </ContentWrapper>
         )}
