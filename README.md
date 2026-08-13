@@ -19,7 +19,7 @@ A simple application for planning the day.
 
 #### How to install and run locally
 
-```
+````
 #clone repository
 git clone git@github.com:dieudonneAwa/day-planner.git
 
@@ -29,7 +29,7 @@ yarn install
 #start development server
 yarn dev
 
-```
+````
 
 ### Nice to have features
 - Drag and drop for ordering tasks in ascending or descending order of priority.
